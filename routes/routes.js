@@ -27,7 +27,6 @@ router.post('/register', passport.authenticate('local.signup', {
 }));
 
 router.get('/login', (req, res) => {
-    //res.render('login.ejs', {message: req.flash('loginMessage')});
     var messages = req.flash('error');
     res.render('login.ejs',  {csrfToken: req.csrfToken(), messages: messages});
 });
@@ -37,11 +36,18 @@ router.post('/login', passport.authenticate('local.signin', {
     failureRedirect : '/login', 
     failureFlash : true 
 }));
-// router.post('/login', passport.authenticate('local.signin', {
-//     successRedirect: '/',
-//     failureRedirect: '/login',
-//     failureFlash: true
-// }));
+
+router.get('/addevent', (req, res) => {
+    var messages = req.flash('error');
+    res.render('./ejs/addEvent.ejs', {messages: 'nqt'});
+    //res.render('./ejs/addEvent.ejs', {csrfToken: req.csrfToken(), messages: messages});
+});
+
+router.post('/addevent', (req, res) => {
+    var newEvent = new Event();
+    newEvent.eventname = req.body.eventname;
+});
+
 
 
 module.exports = router;
