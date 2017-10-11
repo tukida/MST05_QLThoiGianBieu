@@ -21,9 +21,7 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(session({
     secret: 'anystringtotext',
-    //resave: true,
     resave: true,
-    //saveUninitialized: true,
     saveUninitialized: true, 
     store: new MongoStore({mongooseConnection: mongoose.connection}),
     cookie: {maxAge: 180 * 60 * 1000}          
@@ -39,10 +37,10 @@ app.use(validator());
 app.use(passport.initialize());
 app.use(passport.session());
 //
-app.use(express.static('layout'));
 app.use(express.static('stylesheets'));
 // Routes
-app.use('/', require('./routes/routes'));
+app.use('/', require('./routes/userRouter'));
+app.use('/', require('./routes/eventRouter'));
 
 app.listen(port, () => {
     console.log("Listening on port: " + port);
